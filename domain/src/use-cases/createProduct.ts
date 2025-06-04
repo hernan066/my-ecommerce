@@ -1,13 +1,8 @@
-import { Product } from "@domain/entities/Product";
+import { Product } from "../entities/Product";
+import { randomUUID } from "crypto";
 
 export class CreateProduct {
-  execute(input: { name: string; price: number }) {
-    const product = new Product({
-      id: "1",
-      name: input.name,
-      price: input.price,
-    });
-
-    return product;
+  execute({ name, price }: { name: string; price: number }): Product {
+    return new Product({ id: randomUUID(), name, price });
   }
 }
