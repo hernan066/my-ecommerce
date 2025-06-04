@@ -10,7 +10,8 @@
     "dev": "yarn workspace backend dev",
     "build": "yarn workspace backend build",
     "start": "yarn workspace backend start",
-    "test": "vitest"
+    "test": "vitest",
+    "test:watch": "vitest --watch"
   },
   "devDependencies": {
     "@types/express": "^5.0.2",
