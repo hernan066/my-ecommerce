@@ -31,4 +31,37 @@ describe("UpdateProduct", () => {
       useCase.execute({ id: "999", name: "X", price: 20 })
     ).rejects.toThrow("Product not found");
   });
+
+  it("should throw if product is not found", async () => {
+    const repository = new InMemoryProductRepository();
+    const useCase = new UpdateProduct(repository);
+
+    await expect(
+      useCase.execute({ id: "999", name: "New", price: 100 })
+    ).rejects.toThrow("Product not found");
+  });
+
+  it("should not allow a product with price 0", async () => {
+    const repository = new InMemoryProductRepository();
+    const useCase = new UpdateProduct(repository);
+
+    const product = new Product({ id: "2", name: "Test", price: 50 });
+    await repository.create(product);
+
+    await expect(
+      useCase.execute({ id: "2", name: "Test", price: 0 })
+    ).rejects.toThrow("Price must be greater than zero");
+  });
+
+  it("should not allow a product with negative price", async () => {
+    const repository = new InMemoryProductRepository();
+    const useCase = new UpdateProduct(repository);
+
+    const product = new Product({ id: "3", name: "Test", price: 50 });
+    await repository.create(product);
+
+    await expect(
+      useCase.execute({ id: "3", name: "Test", price: -10 })
+    ).rejects.toThrow("Price must be greater than zero");
+  });
 });

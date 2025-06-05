@@ -12,6 +12,7 @@ export class UpdateProduct {
   async execute({ id, name, price }: UpdateProductInput): Promise<void> {
     const product = await this.repository.getById(id);
     if (!product) throw new Error("Product not found");
+    if (price <= 0) throw new Error("Price must be greater than zero");
 
     const updatedProduct = {
       ...product,
