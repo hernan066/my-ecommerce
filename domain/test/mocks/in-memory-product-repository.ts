@@ -28,4 +28,8 @@ export class InMemoryProductRepository implements ProductRepository {
       this.products[index] = product;
     }
   }
+
+  async delete(id: string): Promise<void> {
+    this.products = this.products.filter((p) => p.id !== id);
+  }
 }
