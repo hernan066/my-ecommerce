@@ -1,5 +1,5 @@
-import { InMemoryProductRepository } from "@domain/repositories/in-memory/in-memory-product-repository";
 import { GetProductById } from "@domain/use-cases/getProductById";
+import { InMemoryProductRepository } from "../mocks/in-memory-product-repository";
 
 describe("GetProductById", () => {
   it("should return the product by its ID", async () => {
