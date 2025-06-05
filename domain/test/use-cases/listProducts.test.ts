@@ -1,19 +1,19 @@
 import { ListProducts } from "@domain/use-cases/listProducts";
+import { InMemoryProductRepository } from "../mocks/in-memory-product-repository";
 
 describe("ListProducts", () => {
-  it("should return a list of products", async () => {
-    const mockRepository = {
-      findAll: vi.fn().mockResolvedValue([
-        { id: "1", name: "Product A", price: 100 },
-        { id: "2", name: "Product B", price: 200 },
-      ]),
-    };
+  it("should return all products", async () => {
+    const repository = new InMemoryProductRepository();
+    const useCase = new ListProducts(repository);
 
-    const useCase = new ListProducts(mockRepository);
+    await repository.create({ id: "1", name: "Product A", price: 10 });
+    await repository.create({ id: "2", name: "Product B", price: 20 });
 
     const result = await useCase.execute();
 
-    expect(result).toHaveLength(2);
-    expect(result[0].name).toBe("Product A");
+    expect(result).toEqual([
+      { id: "1", name: "Product A", price: 10 },
+      { id: "2", name: "Product B", price: 20 },
+    ]);
   });
 });
