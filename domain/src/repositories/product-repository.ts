@@ -6,4 +6,5 @@ export interface ProductRepository {
   getById(id: string): Promise<Product | null>;
   findAll(): Promise<Product[]>;
   update(product: Product): Promise<void>;
+  delete(id: string): Promise<void>;
 }
