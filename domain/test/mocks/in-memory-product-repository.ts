@@ -17,4 +17,8 @@ export class InMemoryProductRepository implements ProductRepository {
     const product = this.products.find((p) => p.id === id);
     return product ?? null;
   }
+
+  async findAll(): Promise<Product[]> {
+    return this.products;
+  }
 }
